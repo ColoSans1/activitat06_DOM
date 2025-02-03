@@ -8,7 +8,7 @@ document.getElementById('setBgRed').addEventListener('click', () => {
   });
   
   document.getElementById('setLinkColor').addEventListener('click', () => {
-    const color = prompt("Enter the color for links (e.g., 'blue', '#FF0000'):");
+    const color = prompt("Introduce el Colo que quieras (Ejemplo Azul:");
     if (color) {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         chrome.scripting.executeScript({
@@ -128,15 +128,16 @@ document.getElementById('setBgRed').addEventListener('click', () => {
   }
   
   function highlightLowestPrice() {
-    const priceElements = document.querySelectorAll('[data-price]');
+    const priceElements = document.querySelectorAll('.a-price-whole');
     let lowestPrice = Infinity;
     let lowestPriceElement = null;
   
     priceElements.forEach(element => {
-      const price = parseFloat(element.getAttribute('data-price'));
+      const priceText = element.textContent.replace('€', '').replace(',', '.').trim();
+      const price = parseFloat(priceText);
       if (price < lowestPrice) {
         lowestPrice = price;
-        lowestPriceElement = element;
+        lowestPriceElement = element.closest('.a-section');
       }
     });
   
